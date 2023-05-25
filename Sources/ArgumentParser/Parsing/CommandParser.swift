@@ -286,13 +286,13 @@ extension CommandParser {
     // First look for `--generate-completion-script <shell>`
     var completionsParser = CommandParser(GenerateCompletions.self)
     if let result = try? completionsParser.parseCurrent(&split) as? GenerateCompletions {
-      throw CommandError(commandStack: commandStack, parserError: .completionScriptRequested(shell: result.generateCompletionScript))
+		throw CommandError(commandStack: commandStack, parserError: .completionScriptRequested(shell: result?.generateCompletionScript))
     }
     
     // Check for for `--generate-completion-script` without a value
     var autodetectedParser = CommandParser(AutodetectedGenerateCompletions.self)
     if let result = try? autodetectedParser.parseCurrent(&split) as? AutodetectedGenerateCompletions,
-       result.generateCompletionScript
+	   result!.generateCompletionScript
     {
       throw CommandError(commandStack: commandStack, parserError: .completionScriptRequested(shell: nil))
     }
